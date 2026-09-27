@@ -56,7 +56,7 @@ class ModelManager(private val context: Context) {
             
             resetUnloadTimer()
             
-            _state.value = ModelStateLoaded(tier)
+            _state.value = ModelState.Loaded(tier)
         }
     }
     
