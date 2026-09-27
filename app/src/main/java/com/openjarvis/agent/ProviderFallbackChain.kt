@@ -33,7 +33,7 @@ class ProviderFallbackChain(private val context: Context) {
         for ((provider, name) in providers) {
             if (isInCooldown(name)) continue
             
-            val result = runCatching { provider.complete(system, user) }
+            val result = provider.complete(system, user)
             
             if (result.isSuccess) {
                 return result
@@ -41,7 +41,7 @@ class ProviderFallbackChain(private val context: Context) {
             
             val errorMsg = result.exceptionOrNull()?.message ?: ""
             
-            graphifyRepo.logProviderFailure(name, errorMsg)
+            graphifyRepo.logTask("provider:$name", "failed: $errorMsg", name, 0)
             
             if (errorMsg.contains("429")) {
                 cooldownMap[name] = System.currentTimeMillis() + 60_000
