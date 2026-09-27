@@ -321,7 +321,7 @@ private fun SettingsHeader(onNavigateBack: () -> Unit) {
     ) {
         IconButton(onClick = onNavigateBack) {
             Icon(
-                imageVector = Icons.Default.KeyboardArrowLeft,
+                imageVector = Icons.Default.ArrowBack,
                 contentDescription = "Back",
                 tint = VoidColor.TextSecondary
             )
@@ -409,7 +409,7 @@ private fun ProviderSelectorCard(
             )
             
             Icon(
-                imageVector = Icons.Default.KeyboardArrowRight,
+                imageVector = Icons.Default.ArrowForward,
                 contentDescription = null,
                 tint = VoidColor.TextDisabled,
                 modifier = Modifier.graphicsLayer(rotationZ = rotationAngle)
@@ -565,8 +565,7 @@ fun FloatingLabelTextField(
                     fontSize = 14.sp,
                     color = VoidColor.TextPrimary
                 ),
-                visualTransformation = if (isPassword && !showPassword) 
-                    PasswordVisualTransformation() else VisualTransformation.None
+                visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None
             )
         }
     }
@@ -767,7 +766,7 @@ private fun PermissionRow(
             }
             
             Icon(
-                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                imageVector = Icons.Default.ArrowForward,
                 contentDescription = null,
                 tint = VoidColor.Red
             )
