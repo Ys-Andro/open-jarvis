@@ -162,5 +162,4 @@ class JarvisNotificationListener : NotificationListenerService() {
             "com.discord"
         )
     }
-}    }
 }
