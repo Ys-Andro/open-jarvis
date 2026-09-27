@@ -105,7 +105,7 @@ class ScreenReader(private val context: Context) {
     }
 
     fun getFocusedNode(): AccessibilityNodeInfo? {
-        val rootNode = service.rootInActiveWindow ?: return null
+        val rootNode = service?.rootInActiveWindow ?: return null
         val focused = rootNode.findFocus(AccessibilityNodeInfo.FOCUS_INPUT)
         rootNode.recycle()
         return focused
