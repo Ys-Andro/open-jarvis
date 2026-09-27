@@ -19,7 +19,7 @@ class AutomationManager(private val context: Context) {
     val automationsFlow: StateFlow<List<Automation>> = _automationsFlow
     
     suspend fun loadAutomations() {
-        _automationsFlow.value = dao.getAll().map { it.toAutomation() }.map { it.toAutomation() }
+        _automationsFlow.value = dao.getAll().map { it.toAutomation() }
     }
     
     suspend fun createAutomation(automation: Automation): String = withContext(Dispatchers.IO) {
@@ -77,7 +77,7 @@ class AutomationManager(private val context: Context) {
             "automation_command" to automation.command
         )
         
-        val request = when (val schedule = automation.schedule) {
+        val request: WorkRequest = when (val schedule = automation.schedule) {
             is AutomationSchedule.Daily -> {
                 PeriodicWorkRequestBuilder<AutomationWorker>(
                     24, TimeUnit.HOURS,
