@@ -39,10 +39,10 @@ class SkillEngine(private val context: Context) {
     }
     
     private fun copyBuiltinSkillsIfNeeded() {
-        val builtinDir = File(context.assets, "skills")
-        if (!builtinDir.exists()) return
-        
-        builtinDir.listFiles()?.forEach { assetFile ->
+        val assetNames = context.assets.list("skills") ?: return
+        assetNames.forEach { assetName ->
+            val assetFile = File(assetName)
+
             val destFile = File(skillsDir, assetFile.name)
             if (!destFile.exists()) {
                 try {
@@ -226,7 +226,9 @@ Actions: [$actionsJson]
             llmHint = "Custom action sequence",
             actionTemplate = actions,
             successVerification = "Task completed",
-            tags = listOf("generated", "custom")
+            tags = listOf("generated", "custom"),
+            usageCount = 0,
+            successRate = 1f
         )
     }
     
