@@ -19,11 +19,11 @@ class AutomationManager(private val context: Context) {
     val automationsFlow: StateFlow<List<Automation>> = _automationsFlow
     
     suspend fun loadAutomations() {
-        _automationsFlow.value = dao.getAll()
+        _automationsFlow.value = dao.getAll().map { it.toAutomation() }
     }
     
     suspend fun createAutomation(automation: Automation): String = withContext(Dispatchers.IO) {
-        dao.insert(automation)
+        dao.insert(automation.toEntity())
         
         scheduleAutomation(automation)
         
@@ -32,7 +32,7 @@ class AutomationManager(private val context: Context) {
     }
     
     suspend fun updateAutomation(automation: Automation) = withContext(Dispatchers.IO) {
-        dao.update(automation)
+        dao.update(automation.toEntity())
         cancelAutomation(automation.id)
         
         if (automation.enabled) {
@@ -49,9 +49,9 @@ class AutomationManager(private val context: Context) {
     }
     
     suspend fun toggleAutomation(id: String, enabled: Boolean) = withContext(Dispatchers.IO) {
-        val automation = dao.getById(id) ?: return@withContext
+        val automation = dao.getById(id)?.toAutomation() ?: return@withContext
         val updated = automation.copy(enabled = enabled)
-        dao.update(updated)
+        dao.update(updated.toEntity())
         
         if (enabled) {
             scheduleAutomation(updated)
