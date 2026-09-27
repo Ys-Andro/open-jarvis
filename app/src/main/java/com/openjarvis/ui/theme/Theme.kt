@@ -6,6 +6,7 @@ object VoidColor {
     val Void950 = Color(0xFF08080C)
     val Void900 = Color(0xFF101016)
     val Void800 = Color(0xFF181820)
+    val Void700 = Color(0xFF25252F)
     val Void600 = Color(0xFF343443)
 
     val TextPrimary = Color(0xFFF4F4F7)
@@ -21,4 +22,18 @@ object VoidColor {
     val Green = Color(0xFF4ADE80)
     val Amber = Color(0xFFFBBF24)
     val Red = Color(0xFFF87171)
+}
+
+@androidx.compose.runtime.Composable
+fun OpenJarvisTheme(content: @androidx.compose.runtime.Composable () -> Unit) {
+    androidx.compose.material3.MaterialTheme(
+        colorScheme = androidx.compose.material3.darkColorScheme(
+            primary = VoidColor.Violet,
+            secondary = VoidColor.Cyan,
+            background = VoidColor.Void950,
+            surface = VoidColor.Void900,
+            error = VoidColor.Red
+        ),
+        content = content
+    )
 }
