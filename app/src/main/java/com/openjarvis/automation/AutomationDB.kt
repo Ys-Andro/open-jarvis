@@ -64,7 +64,7 @@ fun AutomationEntity.toAutomation(): AutomationManager.Automation {
         "daily" -> AutomationManager.AutomationSchedule.Daily(scheduleHour, scheduleMinute)
         "weekly" -> AutomationManager.AutomationSchedule.Weekly(scheduleDayOfWeek, scheduleHour, scheduleMinute)
         "interval" -> AutomationManager.AutomationSchedule.Interval(scheduleIntervalMs)
-        "once" -> AutomationManager.AutomationSchedule.Once(scheduleAtMs)
+        "once" -> AutomationManager.AutomationSchedule.Once(scheduleIntervalMs)
         else -> AutomationManager.AutomationSchedule.Interval(scheduleIntervalMs.coerceAtLeast(60_000L))
     }
 
@@ -100,7 +100,7 @@ fun AutomationManager.Automation.toEntity(): AutomationEntity {
         )
         is AutomationManager.AutomationSchedule.Once -> AutomationEntity(
             id = id, name = name, command = command, scheduleType = "once",
-            scheduleAtMs = value.atMs,
+            scheduleIntervalMs = value.atMs,
             enabled = enabled, lastRun = lastRun, lastResult = lastResult, runCount = runCount
         )
     }
