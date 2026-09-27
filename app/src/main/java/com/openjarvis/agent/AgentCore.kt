@@ -191,6 +191,7 @@ fun executeTask(cleanCommand: String) {
                 graphifyRepo.logTask(cleanCommand, "failed: ${e.message}", "", 0)
             }
         }
+        }
     }
 
     suspend fun testConnection(): Result<Long> {
