@@ -84,7 +84,7 @@ class MCPClient(
             client.newCall(request).execute().use { response ->
                 val body = response.body?.string() ?: return@withContext emptyList()
                 val json = JSONObject(body)
-                val toolsArray = json.optJSONArray("result")?.optJSONArray("tools")
+                val toolsArray = json.optJSONObject("result")?.optJSONArray("tools")
                     ?: JSONArray()
                 
                 availableTools = (0 until toolsArray.length()).map { i ->
