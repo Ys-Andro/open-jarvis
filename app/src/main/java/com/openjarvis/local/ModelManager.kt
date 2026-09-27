@@ -52,7 +52,7 @@ class ModelManager(private val context: Context) {
                 throw Exception("Not enough RAM. Need ${tier.ramRequiredMB}MB free.")
             }
             
-            _state.value = ModelState.Loading
+            _state.value = ModelState.Loading(tier)
             
             resetUnloadTimer()
             
