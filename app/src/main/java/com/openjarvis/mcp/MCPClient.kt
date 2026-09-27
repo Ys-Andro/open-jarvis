@@ -78,10 +78,7 @@ class MCPClient(
             
             val request = Request.Builder()
                 .url(server.url)
-                .post(okhttp3.RequestBody.create(
-                    okhttp3.MediaType.get("application/json"),
-                    requestBody
-                ))
+                .post(requestBody.toRequestBody("application/json".toMediaType()))
                 .build()
             
             client.newCall(request).execute().use { response ->
@@ -126,10 +123,7 @@ class MCPClient(
             
             val request = Request.Builder()
                 .url(server.url)
-                .post(okhttp3.RequestBody.create(
-                    okhttp3.MediaType.get("application/json"),
-                    requestBody
-                ))
+                .post(requestBody.toRequestBody("application/json".toMediaType()))
                 .build()
             
             client.newCall(request).execute().use { response ->
